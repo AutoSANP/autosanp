@@ -241,7 +241,7 @@ A short demo video showing the automation process can also be included.
 |   P.N Maleesha Dilshan   | Virtual environment setup and Ansible automation |
 |     Tharindu Sampath     | Network configuration and system connectivity    |
 |   H.A.S.R.H. Arachchi    | Automation playbook development                  |
-| H.D.T.R. Abhayawardhana  | Documentation and testing                        |
+| H.D.T.R. Abhayawardhana  | Automation policy implementation and testing     |
 |   D.M.H.I. Balasooriya   | System architecture and repository management    |
 
 ---
