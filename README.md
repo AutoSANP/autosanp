@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # AutoSANP
 
 ## Policy-Driven Automated System Administration and Network Management Platform
@@ -203,25 +202,20 @@ This project does not use a dataset. The system operates on virtual machines wit
 ```
 autosanp/
 │
-├── inventory.ini
-├── site.yml
-├── install_apache.yml
-│
-├── roles/
-│   ├── common/
-│   │   └── tasks/
-│   │       └── main.yml
-│   ├── security/
-│   │   └── tasks/
-│   │       └── main.yml
-│   └── web_server/
-│       └── tasks/
-│           └── main.yml
-│
-├── templates/
-│   └── index.html
-│
-└── app.py
+├── app/
+|   ├── app.py
+│   ├── dashboard.py  
+├── data/
+|   ├── autosanp_logs.json
+│   ├── host.ini 
+├── logs/
+├── policies/
+│   ├── database_policy.yml
+|   ├── network_policy.yml
+│   ├── security_policy.yml
+│   ├── server_policy.yml
+├── secrets/
+└── README.md
 ```
 
 ---
@@ -244,11 +238,11 @@ A short demo video showing the automation process can also be included.
 
 | Name        | Role                                             |
 | ----------- | ------------------------------------------------ |
-| T. Tharusha | Virtual environment setup and Ansible automation |
-| K. Nimal    | Network configuration and system connectivity    |
-| S. Sampath  | Automation playbook development                  |
-| R. Kavindu  | Documentation and testing                        |
-| D. Sanduni  | System architecture and repository management    |
+|   P.N Maleesha Dilshan   | Virtual environment setup and Ansible automation |
+|     Tharindu Sampath     | Network configuration and system connectivity    |
+|   H.A.S.R.H. Arachchi    | Automation playbook development                  |
+| H.D.T.R. Abhayawardhana  | Documentation and testing                        |
+|   D.M.H.I. Balasooriya   | System architecture and repository management    |
 
 ---
 
@@ -271,4 +265,3 @@ MIT License
 You may reuse and modify the project with proper attribution.
 =======
 # autosanp
->>>>>>> d72a61f (Initial commit)
