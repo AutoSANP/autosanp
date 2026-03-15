@@ -1,164 +1,126 @@
 # AutoSANP
 
-## Policy-Driven Automated System Administration and Network Management Platform
-
----
+Policy-Driven Automated System Administration and Network Management Platform
 
 ## Project Description
 
-Modern IT environments often require administrators to manage multiple computers, servers, and network services simultaneously. Performing administrative tasks manually on each system can be time‑consuming, repetitive, and prone to configuration errors. Tasks such as installing software packages, configuring services, managing users, and enforcing security policies must be applied consistently across all machines in a network.
+Modern IT environments, such as university computer labs, require administrators to manage multiple computers, servers, and network services simultaneously. Performing administrative tasks manually on each system can be time‑consuming, repetitive, and prone to configuration errors. Tasks such as installing software packages, configuring services, managing users, and enforcing policies for security, database, network, and server configurations must be applied consistently across all machines.
 
-AutoSANP (Automated System Administration and Network Policy platform) is a prototype automation framework designed to simplify system administration by using centralized management and policy‑driven automation. The system allows a single controller machine to manage multiple client systems remotely through secure connections.
+AutoSANP (Automated System Administration and Network Policy platform) is a centralized automation framework developed to manage a real computer lab infrastructure efficiently. While the system is being tested in a virtual environment using VirtualBox VMs, it is designed to be deployed directly on actual lab machines. The platform allows a single controller machine to manage multiple client systems remotely through secure connections, ensuring consistency and compliance with predefined policies.
 
-The platform demonstrates how automation tools can be used to perform administrative tasks across multiple machines efficiently. By using predefined policies and automation scripts, administrators can ensure that all systems maintain consistent configurations and security settings.
+By using AutoSANP, administrators can automate repetitive configuration tasks, enforce security, database, network, and server policies, and maintain uniform system settings across all computers, whether virtual or physical.
 
-### Objectives
+## Objectives
 
-* Demonstrate centralized system administration using automation tools
-* Reduce manual system configuration tasks
-* Ensure consistent configuration across multiple machines
-* Implement policy‑based system management
-* Provide a virtual environment to test infrastructure automation
+* Demonstrate centralized system administration using automation tools.
+* Reduce manual system configuration tasks.
+* Ensure consistent configuration across multiple machines.
+* Implement policy‑based system management.
+* Provide a virtual environment for testing before real lab deployment.
 
-### Target Users
+## Target Users
 
 * System administrators
 * DevOps engineers
 * IT students learning infrastructure automation
-* Small organizations managing multiple Linux machines
-
----
+* Educational institutions managing computer labs
 
 ## System Architecture / Design
 
-The system follows a **Controller–Client architecture**.
+The system follows a Controller–Client architecture.
 
 ### Components
 
-1. **Controller Node**
+**Controller Node**
 
-   * Central machine responsible for automation
-   * Runs Ansible and executes playbooks
-   * Stores inventory and policy definitions
+* Central machine responsible for automation.
+* Runs Ansible and executes playbooks.
+* Stores inventory and policy definitions.
 
-2. **Client Nodes**
+**Client Nodes**
 
-   * Managed machines in the network
-   * Receive configuration commands from the controller
-   * Execute tasks such as software installation and service configuration
+* Managed machines in the network (can be VMs or physical lab computers).
+* Receive configuration commands from the controller.
+* Execute tasks to apply changes according to security, database, network, and server policies.
 
-3. **Automation Engine**
+**Automation Engine**
 
-   * Implemented using Ansible
-   * Executes playbooks and roles to enforce policies
+* Implemented using Ansible.
+* Executes playbooks and roles to enforce policies.
 
-4. **Secure Communication Layer**
+**Secure Communication Layer**
 
-   * SSH used for remote communication
-   * SSH key authentication used for password‑less automation
+* SSH used for remote communication.
+* SSH key authentication used for password‑less automation.
 
 ### Workflow
 
-1. Administrator defines policies using Ansible playbooks
-2. Controller reads the inventory of client machines
-3. Controller connects to clients via SSH
-4. Playbooks execute tasks on remote machines
-5. Client machines apply configurations automatically
-
----
+1. Administrator defines policies using Ansible playbooks.
+2. Controller reads the inventory of client machines.
+3. Controller connects to clients via SSH.
+4. Playbooks execute tasks on remote machines.
+5. Client machines apply configurations automatically.
 
 ## Technologies Used
 
-### Programming / Scripting
+**Programming / Scripting**: Python, YAML, Bash
+**Automation Tools**: Ansible
+**Virtualization (for testing)**: VirtualBox
+**Operating System**: Lubuntu / Ubuntu Linux
+**Network Tools**: SSH (Secure Shell)
+**Version Control**: Git, GitHub / GitLab / Bitbucket
 
-* Python
-* YAML
-* Bash
-
-### Automation Tools
-
-* Ansible
-
-### Virtualization
-
-* VirtualBox
-
-### Operating System
-
-* Lubuntu / Ubuntu Linux
-
-### Network Tools
-
-* SSH (Secure Shell)
-
-### Version Control
-
-* Git
-* GitHub / GitLab / Bitbucket
-
----
-
-## Installation Instructions
+## Installation Instructions (Prototype using VMs)
 
 ### Requirements
 
-* VirtualBox installed
+* VirtualBox installed (for testing)
 * Linux ISO (Lubuntu/Ubuntu)
 * Minimum 8GB RAM recommended
 * Internet connection
 
-### Step 1: Create Virtual Machines
+### Steps
 
-Create the following virtual machines:
+1. **Create Virtual Machines**
 
-* Controller VM
-* Client VM 1
-* Client VM 2
-* Client VM 3
+   * Controller VM
+   * Client VM 1, 2, 3
+   * Ensure all machines are connected to the same internal network.
 
-All machines should be connected to the same internal network.
-
-### Step 2: Install Required Packages
-
-Run the following on each client machine:
+2. **Install Required Packages (on each client)**
 
 ```
 sudo apt update
 sudo apt install openssh-server python3 -y
 ```
 
-### Step 3: Setup SSH Authentication
-
-On the controller machine:
+3. **Setup SSH Authentication (on controller)**
 
 ```
 ssh-keygen
 ssh-copy-id user@client-ip
 ```
 
-This enables password‑less SSH access.
-
-### Step 4: Install Ansible (Controller Only)
+4. **Install Ansible (Controller Only)**
 
 ```
 sudo apt update
 sudo apt install ansible -y
 ```
 
-### Step 5: Create Project Workspace
+5. **Create Project Workspace**
 
 ```
 mkdir ~/autosanp
 cd ~/autosanp
 ```
 
----
+> **Note:** In a real lab deployment, replace VM IPs with actual machine IPs and follow the same configuration steps for each physical client computer.
 
 ## Usage Instructions
 
-### 1. Create Inventory File
-
-Example `inventory.ini`:
+1. **Create Inventory File**
+   Example `inventory.ini`:
 
 ```
 [clients]
@@ -167,35 +129,25 @@ Example `inventory.ini`:
 192.168.10.22
 ```
 
-### 2. Test Connectivity
+2. **Test Connectivity**
 
 ```
 ansible -i inventory.ini all -m ping
 ```
 
-Expected Output:
+Expected Output: `pong`
 
-```
-pong
-```
-
-### 3. Run Automation Playbook
-
-Example command:
+3. **Run Automation Playbook**
 
 ```
 ansible-playbook -i inventory.ini install_apache.yml
 ```
 
-This automatically installs Apache web server on all client machines.
-
----
+This installs Apache web server on all client machines.
 
 ## Dataset
 
-This project does not use a dataset. The system operates on virtual machines within a simulated network environment.
-
----
+This project does not use an external dataset. It operates on virtual or physical machines within a managed network environment.
 
 ## Project Structure
 
@@ -203,65 +155,49 @@ This project does not use a dataset. The system operates on virtual machines wit
 autosanp/
 │
 ├── app/
-|   ├── app.py
+│   ├── app.py
 │   ├── dashboard.py  
 ├── data/
-|   ├── autosanp_logs.json
-│   ├── host.ini 
+│   ├── autosanp_logs.json
+│   ├── host.ini
 ├── logs/
 ├── policies/
 │   ├── database_policy.yml
-|   ├── network_policy.yml
+│   ├── network_policy.yml
 │   ├── security_policy.yml
 │   ├── server_policy.yml
 ├── secrets/
 └── README.md
 ```
 
----
-
 ## Screenshots / Demo
 
 Suggested screenshots to include:
 
-* VirtualBox virtual network setup
+* VirtualBox virtual network setup (prototype)
 * SSH connection from controller to client
 * Ansible ping test
 * Playbook execution results
 * Apache web server running on client
-
-A short demo video showing the automation process can also be included.
-
----
+* Short demo video showing automation process
 
 ## Contributors
 
-| Name        | Role                                             |
-| ----------- | ------------------------------------------------ |
-|   P.N Maleesha Dilshan   | Virtual environment setup and Ansible automation |
-|     Tharindu Sampath     | Network configuration and system connectivity    |
-|   H.A.S.R.H. Arachchi    | Automation playbook development                  |
-| H.D.T.R. Abhayawardhana  | Automation policy implementation and testing     |
-|   D.M.H.I. Balasooriya   | System architecture and repository management    |
-
----
+| Name                    | Role                                             |
+| ----------------------- | ------------------------------------------------ |
+| P.N Maleesha Dilshan    | Virtual environment setup and Ansible automation |
+| Tharindu Sampath        | Network configuration and system connectivity    |
+| H.A.S.R.H. Arachchi     | Automation playbook development                  |
+| H.D.T.R. Abhayawardhana | Automation policy implementation and testing     |
+| D.M.H.I. Balasooriya    | System architecture and repository management    |
 
 ## Contact Information
 
 Institution: University Project Team
-
 For questions or collaboration, contact any team member via the emails listed in the project documentation.
-
----
 
 ## License
 
 This project is released for educational purposes.
-
-Suggested license:
-
-MIT License
-
+Suggested license: MIT License
 You may reuse and modify the project with proper attribution.
-=======
-# autosanp
