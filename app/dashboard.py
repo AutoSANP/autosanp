@@ -58,12 +58,21 @@ HTML_TEMPLATE = """
 def index():
     logs = []
     try:
-        # Looking in the 'data' folder
         with open(LOG_FILE, 'r') as f:
             for line in f:
-                logs.append(json.loads(line))
+                line = line.strip()           # remove whitespace
+                if not line:                  # skip empty lines
+                    continue
+                try:
+                    logs.append(json.loads(line))
+                except json.JSONDecodeError as e:
+                    # Log the issue in console, but skip the line
+                    print(f"Skipping invalid JSON line: {line} -> {e}")
     except FileNotFoundError:
-        pass
+        print(f"Log file not found: {LOG_FILE}")
+    except Exception as e:
+        print(f"Unexpected error reading log file: {e}")
+
     return render_template_string(HTML_TEMPLATE, logs=reversed(logs))
 
 @app.route('/run/<policy_name>', methods=['POST'])
@@ -80,4 +89,3 @@ def run_policy(policy_name):
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
-    
