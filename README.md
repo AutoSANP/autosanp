@@ -198,6 +198,4 @@ For questions or collaboration, contact any team member via the emails listed in
 
 ## License
 
-This project is released for educational purposes.
-Suggested license: MIT License
-You may reuse and modify the project with proper attribution.
+The Project has Licensed Under MIT License
