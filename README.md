@@ -41,7 +41,7 @@ The system follows a Controller–Client architecture.
 
 * Managed machines in the network (can be VMs or physical lab computers).
 * Receive configuration commands from the controller.
-* Execute tasks to apply changes according to security, database, network, and server policies.
+* Execute tasks to apply changes according to security, database, and server policies.
 
 **Automation Engine**
 
