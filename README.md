@@ -83,11 +83,10 @@ The system follows a Controller–Client architecture.
 
 1. **Define Controller and Client Design**
 
-   * Controller PC
-   * Define Client PC's
+   * Define and Controller and Client PC's
    * Ensure all machines are connected to the same internal network.
-   * Controller generated key pairs
-   * Copy public key to client PC's
+   * Controller PC generated key pairs
+   * Controller PC copy public key to client PC's
 
 2. **Install Required Packages (on each client)**
 
