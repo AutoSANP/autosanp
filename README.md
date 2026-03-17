@@ -195,6 +195,17 @@ Suggested screenshots to include:
 * Apache web server running on client
 * Short demo video showing automation process
 
+## Future Enhancements
+
+* Web-based dashboard for monitoring and controlling automation tasks.
+* Role-based access control (RBAC) for multiple administrators.
+* Integration with cloud platforms (AWS, Azure, Google Cloud).
+* Automated backup and restore policies.
+* Real-time monitoring and alerting system.
+* Logging and reporting dashboard with analytics.
+* Container support (Docker, Kubernetes integration).
+* AI-based anomaly detection for system configurations.
+
 ## Contributors
 
 | Name                    | Role                                             |
