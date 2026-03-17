@@ -1,29 +1,42 @@
 ---
-- name: Security Update Policies
-  hosts: students
+- name: Security Update and Firewall Policy
+  hosts: managed_hosts
   become: yes
-  tasks:
 
+  tasks:
+    # 1. System එකේ package list එක update කිරීම
     - name: Update apt cache
       apt:
         update_cache: yes
 
-    - name: Update packages
+    # 2. තියෙන ඔක්කොම software අලුත්ම security patches වලට upgrade කිරීම
+    - name: Update all packages to the latest version
       apt:
         upgrade: dist
 
-    - name: Install UFW
+    # 3. UFW Firewall එක install වී නැත්නම් install කිරීම
+    - name: Install UFW (Uncomplicated Firewall)
       apt:
         name: ufw
         state: present
 
-    - name: Allow HTTP
+    # 4. ඉතාම වැදගත්: SSH allow කිරීම (Controller PC එකට දිගටම connect වී සිටීමට)
+    - name: Allow SSH (Port 22) - CRITICAL for remote access
       ufw:
         rule: allow
-        port: 80
+        port: '22'
         proto: tcp
 
-    - name: Enable firewall
+    # 5. Web traffic (Apache/Nginx) සඳහා Port 80 allow කිරීම
+    - name: Allow HTTP (Port 80)
       ufw:
-        state: enable
+        rule: allow
+        port: '80'
+        proto: tcp
 
+    # 6. Firewall එක ක්‍රියාත්මක කිරීම (Note: 'enabled' is the correct syntax)
+    - name: Enable Firewall and set default deny
+      ufw:
+        state: enabled
+        policy: deny
+        direction: incoming
