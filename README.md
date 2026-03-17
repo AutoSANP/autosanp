@@ -68,37 +68,47 @@ The system follows a Controller–Client architecture.
 **Virtualization (for testing)**: VirtualBox
 **Operating System**: Lubuntu / Ubuntu Linux
 **Network Tools**: SSH (Secure Shell)
-**Version Control**: Git, GitHub / GitLab / Bitbucket
+**Version Control**: Git, GitHub 
 
 ## Installation Instructions (Prototype using VMs)
 
 ### Requirements
 
 * VirtualBox installed (for testing)
+* PC's which are connected each other and one must taken as the Controller and other PC's act as clients.
 * Linux ISO (Lubuntu/Ubuntu)
-* Minimum 8GB RAM recommended
 * Internet connection
 
 ### Steps
 
-1. **Create Virtual Machines**
+1. **Define Controller and Client Design**
 
-   * Controller VM
-   * Client VM 1, 2, 3
+   * Controller PC
+   * Define Client PC's
    * Ensure all machines are connected to the same internal network.
+   * Controller generated key pairs
+   * Copy public key to client PC's
 
 2. **Install Required Packages (on each client)**
 
 ```
 sudo apt update
-sudo apt install openssh-server python3 -y
+sudo apt install openssh-server -y
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
 ```
 
 3. **Setup SSH Authentication (on controller)**
 
 ```
+sudo apt update
+sudo apt install openssh-server -y
+sudo systemctl enable ssh
+sudo systemctl start ssh
 ssh-keygen
 ssh-copy-id user@client-ip
+
 ```
 
 4. **Install Ansible (Controller Only)**
@@ -119,8 +129,8 @@ cd ~/autosanp
 
 ## Usage Instructions
 
-1. **Create Inventory File**
-   Example `inventory.ini`:
+1. **Create Inventory File containing IP Addresses**
+   Example `hosts.ini`:
 
 ```
 [clients]
@@ -135,7 +145,10 @@ cd ~/autosanp
 ansible -i inventory.ini all -m ping
 ```
 
-Expected Output: `pong`
+Expected Output: `client1 | SUCCESS => {
+    "changed": false,
+    "ping": "pong"
+}`
 
 3. **Run Automation Playbook**
 
@@ -143,7 +156,7 @@ Expected Output: `pong`
 ansible-playbook -i inventory.ini install_apache.yml
 ```
 
-This installs Apache web server on all client machines.
+This installs Apache web server on all client machines - Initial Manual Check.
 
 ## Dataset
 
@@ -159,11 +172,13 @@ autosanp/
 │   ├── dashboard.py  
 ├── data/
 │   ├── autosanp_logs.json
-│   ├── host.ini
+│   ├── hosts.ini
+|   ├── policy_states.json
+|
 ├── logs/
+|  
 ├── policies/
 │   ├── database_policy.yml
-│   ├── network_policy.yml
 │   ├── security_policy.yml
 │   ├── server_policy.yml
 ├── secrets/
@@ -186,15 +201,17 @@ Suggested screenshots to include:
 | Name                    | Role                                             |
 | ----------------------- | ------------------------------------------------ |
 | P.N Maleesha Dilshan    | Virtual environment setup and Ansible automation |
-| Tharindu Sampath        | Network configuration and system connectivity    |
+| H.PTharindu Sampath     | Network configuration and system connectivity    |
 | H.A.S.R.H. Arachchi     | Automation playbook development                  |
 | H.D.T.R. Abhayawardhana | Automation policy implementation and testing     |
 | D.M.H.I. Balasooriya    | System architecture and repository management    |
 
 ## Contact Information
 
-Institution: University Project Team
+Institution: Department of Computer Science,University of Jaffna.
 For questions or collaboration, contact any team member via the emails listed in the project documentation.
+
+
 
 ## License
 
